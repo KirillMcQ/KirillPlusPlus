@@ -1,5 +1,5 @@
 '''
-This file is made for functions used in ./main.py.
+This file is made for functions used in ../main.py.
 '''
 import ast
 # Error generator
