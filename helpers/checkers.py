@@ -1,5 +1,5 @@
 '''
-This file is for use on ./main.py and is for parsing certain code like variable calls and function calls.
+This file is for use on ../main.py and is for parsing certain code like variable calls and function calls.
 '''
 
 from helpers.helpers import *
