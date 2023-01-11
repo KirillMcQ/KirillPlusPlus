@@ -5,7 +5,7 @@ This program is used for parsing and compiling user inputed code. It is the Kiri
 
 TODO:
     - Fix issue that there are no spaces when showing a string.
-    - Add support for function declarations.
+    - Add support for function declarations and calling those user-declared functions.
 '''
 
 import ast
@@ -16,6 +16,16 @@ ifCondition = False
 wasIfBefore = False
 elifCondition = True
 isElif = False
+elifConditionToCheck = False
+elifCodePass = False
+elifCodeCont = False
+wasIf = False
+elseCondition = False
+isElse = False
+elsePass = False
+elseIfCondition = False
+wasElifEver = False
+elseCode = []
 
 
 
@@ -33,6 +43,9 @@ for code in file:
         ifCode.append(code)
     elif isElif and code!="ENDELIF":
         elifCode.append(code)
+    elif elifCodeCont and code=='ENDELIF':
+        elifCodeCont = False
+        elifCodePass = False
     elif isElif and code=="ENDELIF":
         isElif = False
         for i in elifCode:
@@ -55,9 +68,10 @@ for code in file:
             if i in code:
                 code = code.replace(i, str(userVars[i]))
         isIf = True
+        wasIf = True
         wasIfBefore = True
-        ifCondition = eval(code)
-    elif 'STARTELIF' in code:
+        ifCondition, elifConditionToCheck = eval(code), eval(code)
+    elif 'STARTELIF' in code and not elifConditionToCheck:
         # Check if the condition in the if statement is true or false
         code = code.replace("STARTELIF", "").replace("elif", "")
         # Check if there are any user-made variables inside the code. If so, replace them with the actual value
@@ -65,10 +79,27 @@ for code in file:
             if i in code:
                 code = code.replace(i, str(userVars[i]))
         elifCondition = eval(code)
+        elseIfCondition = eval(code)
         isElif = True
-
+        wasElifEver = True
+    elif 'STARTELIF' in code and elifConditionToCheck:
+        elifCodePass = True
+        elifCodeCont = True
+    elif 'STARTELSE' in code and (wasIf or wasElifEver) and not elifConditionToCheck and not elseIfCondition:
+        isElse = True
+        elsePass = False
+    elif 'STARTELSE' in code:
+        elsePass = True
+    elif isElse and code!='ENDELSE' and not elsePass:
+        elseCode.append(code)
+    elif isElse and code=='ENDELSE':
+        isElse = False
+        elsePass = False
+        for i in elseCode:
+            check(i)
+    elif 'ENDELSE' in code and elsePass:
+        elsePass = False
     else:
-        check(code)
-            
-
+        if not elifCodePass and not elsePass:
+            check(code)
     lineNo+=1
