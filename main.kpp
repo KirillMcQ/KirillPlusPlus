@@ -1,27 +1,14 @@
-// This is a comment
-
-STORE (1+12)*2 IN init
-STORE init+7 IN cuh
+// Program to test If, Else if, and Else statements
 STORE 1 IN b
-STORE 2 IN a
 
-show("Init before if statement:")
-show(init)
-
-show("B before if statement: ")
-show(b)
-
-if(1>0) STARTIF
-    STORE cuh IN init
+if(1>1) STARTIF
+    STORE 2 IN b
 ENDIF
-elif(1>0) STARTELIF
-    STORE a IN b
-    STORE 1 IN b
+elif(1>2) STARTELIF
+    STORE 3 IN b
 ENDELIF
+STARTELSE
+    STORE 4 IN b
+ENDELSE
 
-show("Init after if statement: ")
-show(init)
-
-
-show("B after if statement: ")
 show(b)
