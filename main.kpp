@@ -12,3 +12,18 @@ STARTELSE
 ENDELSE
 
 show(b)
+
+STORE 1 IN c
+if(b>1) STARTIF
+  STORE 2 IN c
+ENDIF
+STARTELSE
+  STORE 3 IN c
+ENDELSE
+show(c)
+
+FUNCTION someRandonFunc() STARTFUNCDEF
+  STORE 1 IN c
+ENDFUNCDEF
+
+someRandomFunc()

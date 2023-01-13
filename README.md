@@ -55,5 +55,3 @@ show(b)
 ```
 
 This program declares a variable `b` and assigns it the value of `1`. It then uses an `if`, `elif`, and `else` statement to reassign the value of `b` based on different conditions. Finally, it uses the `show` function to print the final value of `b` to the console.
-
-<p style="font-size:10px">*****SOME OF THIS WAS WRITTEN BY CHATGPT*****</p>

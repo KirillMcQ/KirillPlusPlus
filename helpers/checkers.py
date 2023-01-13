@@ -11,6 +11,10 @@ lineNo = 1
 isIf = False
 ifCode = []
 elifCode = []
+parts = ""
+funcName = ""
+args = ""
+userFunctionCode = []
 
 
 # Built-in functions
@@ -21,6 +25,7 @@ userVars = {}
 
 # User-made function names
 userFuncs = []
+
 
 ############################### VAR ASSIGN CHECK ##################################
 def check(code):
@@ -69,7 +74,8 @@ def check(code):
     elif '(' in code and ')' in code and '-' not in code and '+' not in code and '*' not in code and '/' not in code and len(code) > 2 and '>=' not in code and '<=' not in code and '==' not in code and '!=' not in code and '>' not in code and '<' not in code:
         if code.count('(') > 1 or code.count(')') > 1:
             error("Error on line " + str(lineNo) + ": Multiple function calls.")
-
+          # TODO: Open a new python file, and then write to it the function decleration with the name and the args. THen, if someone clals it just import the funcs from that file
+          
         parts = code.split('(')
         funcName = parts[0]
         args = parts[1][:-1]
@@ -94,4 +100,6 @@ def check(code):
                     error("Built-in function 'show' called without arguments.")
         else:
             if funcName not in userFuncs:
-                error("Error on line " + str(lineNo) + ": Function " + funcName + " does not exist.")
+              error("Error on line " + str(lineNo) + ": Function " + funcName + " does not exist.")
+            else:
+              print("Func in user made funcs list!")
